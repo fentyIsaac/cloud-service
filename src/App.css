@@ -1,0 +1,38 @@
+/* App.css */
+html, body {
+  height: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the body takes at least full height */
+}
+
+.container {
+  flex: 1; /* Makes the main content area flexible */
+}
+
+.footer {
+  background-color: #406af5; /* Match your footer background */
+  text-align: center;
+  padding: 0.25rem; /* Adjust as needed */
+  font-weight: bold;
+
+  
+
+}
+
+/* App.css */
+.navbar .navbar-nav .nav-link {
+  font-weight: bold; /* Makes the navbar links bold */
+}
+.navbar .navbar-brand{
+  color: #406af5;
+  font-weight: bold;
+}
+
