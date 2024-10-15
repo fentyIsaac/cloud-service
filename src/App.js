@@ -9,8 +9,11 @@ import SignUp from './components/SignUp';
 import './App.css';
 
 const App = () => {
+    
+    //useState varible tells the program we are not authenticated therefore cannot access the userManagement page.
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+    //useEffect Hook. Tells the program in the event localStorage.getItem is authenticated AND strictly true. Then we setIsAuthenticated(authenticated). Now the local storage is authenticated. 
     useEffect(() => {
         const authenticated = localStorage.getItem('authenticated') === 'true';
         setIsAuthenticated(authenticated);
@@ -39,6 +42,8 @@ const App = () => {
                                     </li>
                                 </>
                             ) : (
+
+                                //Here is an example of HTML code being used with react imports and fragments. 
                                 <>
                                     <li className="nav-item">
                                         <Link className="nav-link" to="/login">Login</Link>
