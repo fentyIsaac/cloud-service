@@ -1,9 +1,14 @@
 [
-    {"username": "Admin",
+  {
+    "username": "Admin",
     "password": "Admin1"
   },
-
-  {"username": "BobHanks",
-  "password": "Bobby"
-}
+  {
+    "username": "BobHanks",
+    "password": "Bobby"
+  },
+  {
+    "username": "Affly",
+    "password": "Baff"
+  }
 ]

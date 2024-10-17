@@ -6,10 +6,22 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Configure CORS
+const allowedOrigins = ['http://localhost:3000', 'https://levelstotrading.com'];
+
 app.use(cors({
-    origin: 'https://levelstotrading.com' // Replace with your actual frontend URL
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
 }));
+
 app.use(bodyParser.json());
+app.use(express.static('public')); // Serve static files from the public directory
 
 const dbFilePath = 'users.json';
 
@@ -51,6 +63,12 @@ app.post('/login', (req, res) => {
     }
 
     res.status(200).json({ message: 'Login successful!' });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Something went wrong!' });
 });
 
 // Start the server

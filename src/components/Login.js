@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const Login = ({ setAuthenticated }) => {
+const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -10,7 +10,7 @@ const Login = ({ setAuthenticated }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://levelstotrading.com/api/login', { // Updated URL
+            const response = await fetch(`${window.location.origin}/login`, { // Dynamically set API endpoint
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -20,10 +20,9 @@ const Login = ({ setAuthenticated }) => {
 
             const data = await response.json();
             setMessage(data.message);
-
             if (response.ok) {
-                setAuthenticated(true);
-                localStorage.setItem('authenticated', 'true');
+                setUsername('');
+                setPassword('');
                 navigate('/usermanagement');
             }
         } catch (error) {
@@ -52,7 +51,6 @@ const Login = ({ setAuthenticated }) => {
                 <button type="submit">Login</button>
             </form>
             {message && <p>{message}</p>}
-            <p>Don't have an account? <Link to="/signup">Sign up here</Link></p>
         </div>
     );
 };

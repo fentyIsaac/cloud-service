@@ -10,7 +10,7 @@ const Signup = () => {
     const handleSignup = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://levelstotrading.com/api/signup', { // Updated URL
+            const response = await fetch(`${window.location.origin}/signup`, { // Dynamically set API endpoint
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
