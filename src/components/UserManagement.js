@@ -11,7 +11,7 @@ const UserManagement = () => {
 
     // Check if user is logged in
     if (!user) {
-        return <p>Please log in to access User Management.</p>; // Handle the null case
+        return <p>Please log in to access User Management.</p>;
     }
 
     const handleFileChange = (e) => {
@@ -25,7 +25,7 @@ const UserManagement = () => {
         }
 
         const formData = new FormData();
-        formData.append('username', user.username); // Use logged-in username
+        formData.append('username', user.username);
         formData.append('password', password);
         formData.append('employeeId', employeeId);
         formData.append('file', file);
@@ -64,35 +64,40 @@ const UserManagement = () => {
     };
 
     return (
-        <div>
+        <div className="container mt-5">
             <h2>User Management</h2>
-            <p>Logged in as: {user.username}</p>
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-            />
-            <input
-                type="text"
-                value={employeeId}
-                onChange={(e) => setEmployeeId(e.target.value)}
-                placeholder="Employee ID"
-            />
-            <input
-                type="file"
-                onChange={handleFileChange}
-            />
-            <button onClick={handleUpload}>Upload</button>
-            {message && <p>{message}</p>}
+            <p>Logged in as: <strong>{user.username}</strong></p>
+            <div className="form-group">
+                <input
+                    type="text"
+                    className="form-control mb-2"
+                    value={employeeId}
+                    onChange={(e) => setEmployeeId(e.target.value)}
+                    placeholder="Employee ID"
+                />
+                <input
+                    type="password"
+                    className="form-control mb-2"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                />
+                <input
+                    type="file"
+                    className="form-control mb-2"
+                    onChange={handleFileChange}
+                />
+                <button className="btn btn-primary" onClick={handleUpload}>Upload</button>
+            </div>
+            {message && <div className="alert alert-info mt-3">{message}</div>}
             
-            <h3>Users</h3>
-            <ul>
+            <h3 className="mt-5">Users</h3>
+            <ul className="list-group">
                 {users.map(user => (
-                    <li key={user.id}>
+                    <li key={user.id} className="list-group-item d-flex justify-content-between align-items-center">
                         {user.username} (ID: {user.employeeId})
-                        {user.file && <a href={user.file} target="_blank" rel="noopener noreferrer">View File</a>}
-                        <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
+                        {user.file && <a href={user.file} target="_blank" rel="noopener noreferrer" className="btn btn-link">View File</a>}
+                        <button className="btn btn-danger btn-sm" onClick={() => handleDeleteUser(user.id)}>Delete</button>
                     </li>
                 ))}
             </ul>

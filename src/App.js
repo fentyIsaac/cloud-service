@@ -6,6 +6,7 @@ import QandAPage from './pages/QandAPage';
 import UserManagement from './components/UserManagement'; // User Management component
 import Login from './components/Login';
 import SignUp from './components/SignUp';
+import OurProcess from './components/OurProcess'; // Import OurProcess component
 import { UserProvider } from './UserContext'; // Import UserProvider
 import './App.css';
 
