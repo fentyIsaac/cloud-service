@@ -1,7 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const fs = require('fs');
+const multer = require('multer');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -11,7 +12,6 @@ const allowedOrigins = ['http://localhost:3000', 'https://levelstotrading.com'];
 
 app.use(cors({
     origin: (origin, callback) => {
-        // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
@@ -21,54 +21,43 @@ app.use(cors({
 }));
 
 app.use(bodyParser.json());
-app.use(express.static('public')); // Serve static files from the public directory
+app.use(express.static('public')); // Serve static files
 
-const dbFilePath = 'users.json';
+// Set up multer for file uploads in memory (without saving to the file system)
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
-let users = [];
-if (fs.existsSync(dbFilePath)) {
-    const data = fs.readFileSync(dbFilePath);
-    users = JSON.parse(data);
-}
-
-// Signup endpoint
+// Signup endpoint (for creating new users)
 app.post('/signup', (req, res) => {
     const { username, password } = req.body;
+
     if (!username || !password) {
         return res.status(400).json({ message: 'Username and password are required.' });
     }
 
-    const existingUser = users.find(user => user.username === username);
-    if (existingUser) {
-        return res.status(400).json({ message: 'User already exists.' });
-    }
-
-    const newUser = { username, password }; // In a real app, hash the password
-    users.push(newUser);
-    fs.writeFileSync(dbFilePath, JSON.stringify(users, null, 2));
-
+    // Here, you would typically save the user data to a database
+    // For now, just return success
     res.status(201).json({ message: 'User created successfully!' });
 });
 
-// Login endpoint
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    if (!username || !password) {
-        return res.status(400).json({ message: 'Username and password are required.' });
+// User management upload endpoint
+app.post('/user-management/upload', upload.single('file'), (req, res) => {
+    const { username, employeeId } = req.body;
+
+    if (!username || !employeeId) {
+        return res.status(400).json({ message: 'Username and employee ID are required.' });
     }
 
-    const user = users.find(user => user.username === username && user.password === password);
-    if (!user) {
-        return res.status(401).json({ message: 'Invalid username or password.' });
-    }
+    const newUser = {
+        username,
+        employeeId,
+        file: req.file ? req.file.buffer.toString('base64') : null // Store file in memory as base64 if needed
+    };
 
-    res.status(200).json({ message: 'Login successful!' });
-});
+    // (Optional) Process newUser data (e.g., save to a database)
+    console.log('User data uploaded:', newUser);
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ message: 'Something went wrong!' });
+    res.status(201).json({ message: 'User data uploaded successfully!' });
 });
 
 // Start the server

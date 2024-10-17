@@ -1,32 +1,30 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useUser } from '../UserContext';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const Login = () => {
+const Login = ({ setAuthenticated }) => {
+    const { setUser } = useUser(); // Use the hook to access setUser
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // Get the navigate function
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        try {
-            const response = await fetch(`${window.location.origin}/login`, { // Dynamically set API endpoint
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            });
 
-            const data = await response.json();
-            setMessage(data.message);
-            if (response.ok) {
-                setUsername('');
-                setPassword('');
-                navigate('/usermanagement');
-            }
-        } catch (error) {
-            setMessage('Login failed. Please try again.');
+        // Simulated user authentication logic
+        const fakeUser = { username, password }; // Simulated user
+
+        if (fakeUser.username && fakeUser.password) {
+            localStorage.setItem('authenticated', 'true');
+            setAuthenticated(true);
+            setUser(fakeUser); // Set the user in context
+            setMessage('Login successful!');
+
+            // Redirect to User Management page
+            navigate('/usermanagement'); // Redirect here
+        } else {
+            setMessage('Invalid username or password.');
         }
     };
 

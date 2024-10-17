@@ -1,26 +1,62 @@
-// src/UserManagement.js
 import React, { useState } from 'react';
+import { useUser } from '../UserContext'; // Import the custom hook
 
 const UserManagement = () => {
-    const [users, setUsers] = useState([]);
-    const [username, setUsername] = useState('');
+    const { user } = useUser(); // Access user data from the hook
     const [password, setPassword] = useState('');
     const [employeeId, setEmployeeId] = useState('');
     const [file, setFile] = useState(null);
+    const [message, setMessage] = useState('');
+    const [users, setUsers] = useState([]);
 
-    const handleCreateUser = () => {
-        const newUser = {
-            id: Date.now(),
-            username,
-            password: btoa(password), // Base64 encoding
-            employeeId,
-            file: file ? URL.createObjectURL(file) : null,
-        };
-        setUsers([...users, newUser]);
-        setUsername('');
-        setPassword('');
-        setEmployeeId('');
-        setFile(null);
+    // Check if user is logged in
+    if (!user) {
+        return <p>Please log in to access User Management.</p>; // Handle the null case
+    }
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
+
+    const handleUpload = async () => {
+        if (!password || !employeeId || !file) {
+            setMessage('All fields are required.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('username', user.username); // Use logged-in username
+        formData.append('password', password);
+        formData.append('employeeId', employeeId);
+        formData.append('file', file);
+
+        try {
+            const response = await fetch('http://localhost:5000/user-management/upload', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message);
+            }
+
+            const newUser = {
+                id: Date.now(),
+                username: user.username,
+                password: btoa(password),
+                employeeId,
+                file: URL.createObjectURL(file),
+            };
+            setUsers([...users, newUser]);
+            setMessage('User created successfully!');
+            setPassword('');
+            setEmployeeId('');
+            setFile(null);
+        } catch (error) {
+            console.error('Error creating user:', error.message);
+            setMessage('Error creating user: ' + error.message);
+        }
     };
 
     const handleDeleteUser = (id) => {
@@ -30,12 +66,7 @@ const UserManagement = () => {
     return (
         <div>
             <h2>User Management</h2>
-            <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-            />
+            <p>Logged in as: {user.username}</p>
             <input
                 type="password"
                 value={password}
@@ -50,9 +81,10 @@ const UserManagement = () => {
             />
             <input
                 type="file"
-                onChange={(e) => setFile(e.target.files[0])}
+                onChange={handleFileChange}
             />
-            <button onClick={handleCreateUser}>Create User</button>
+            <button onClick={handleUpload}>Upload</button>
+            {message && <p>{message}</p>}
             
             <h3>Users</h3>
             <ul>

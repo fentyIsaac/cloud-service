@@ -1,58 +1,61 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-const Signup = () => {
+const SignUp = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-    const navigate = useNavigate();
 
     const handleSignup = async (e) => {
         e.preventDefault();
+
+        // Retrieve existing users from LocalStorage
+        const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+
         try {
-            const response = await fetch(`${window.location.origin}/signup`, { // Dynamically set API endpoint
+            const response = await fetch('http://localhost:5000/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'existing-users': JSON.stringify(existingUsers), // Pass existing users as a header
                 },
                 body: JSON.stringify({ username, password }),
             });
 
             const data = await response.json();
-            setMessage(data.message);
             if (response.ok) {
-                setUsername('');
-                setPassword('');
-                navigate('/usermanagement');
+                // Save the new user to LocalStorage
+                existingUsers.push({ username, password }); // Hash the password in a real app
+                localStorage.setItem('users', JSON.stringify(existingUsers));
+                
+                setMessage(data.message);
+            } else {
+                setMessage(data.message);
             }
         } catch (error) {
-            setMessage('Signup failed. Please try again.');
+            setMessage('An error occurred.');
         }
     };
 
     return (
-        <div>
-            <h2>Signup</h2>
-            <form onSubmit={handleSignup}>
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Username"
-                    required
-                />
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                    required
-                />
-                <button type="submit">Sign Up</button>
-            </form>
+        <form onSubmit={handleSignup}>
+            <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Username"
+                required
+            />
+            <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                required
+            />
+            <button type="submit">Sign Up</button>
             {message && <p>{message}</p>}
-        </div>
+        </form>
     );
 };
 
-export default Signup;
+export default SignUp;
