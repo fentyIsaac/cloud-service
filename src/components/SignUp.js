@@ -1,4 +1,3 @@
-// src/Signup.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +10,7 @@ const Signup = () => {
     const handleSignup = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5000/signup', {
+            const response = await fetch('https://levelstotrading.com/api/signup', { // Updated URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -34,7 +33,7 @@ const Signup = () => {
     return (
         <div>
             <h2>Signup</h2>
-            <form onSubmit={handleSignup}> 
+            <form onSubmit={handleSignup}>
                 <input
                     type="text"
                     value={username}

@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-
-
-
 const Login = ({ setAuthenticated }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -13,7 +10,7 @@ const Login = ({ setAuthenticated }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://levelstotrading.com/login', {
+            const response = await fetch('https://levelstotrading.com/api/login', { // Updated URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,7 +24,7 @@ const Login = ({ setAuthenticated }) => {
             if (response.ok) {
                 setAuthenticated(true);
                 localStorage.setItem('authenticated', 'true');
-                navigate('/usermanagement'); // Redirect to User Management page
+                navigate('/usermanagement');
             }
         } catch (error) {
             setMessage('Login failed. Please try again.');
@@ -36,8 +33,6 @@ const Login = ({ setAuthenticated }) => {
 
     return (
         <div>
-
-            {/*  Example 2: JSX code. HTML and JS working together  */}
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
                 <input
@@ -57,7 +52,7 @@ const Login = ({ setAuthenticated }) => {
                 <button type="submit">Login</button>
             </form>
             {message && <p>{message}</p>}
-            <p>Don't have an account? <Link to="/signup">Sign up here</Link></p> {/* Link to signup */}
+            <p>Don't have an account? <Link to="/signup">Sign up here</Link></p>
         </div>
     );
 };

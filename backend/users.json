@@ -1,3 +1,9 @@
 [
+    {"username": "Admin",
+    "password": "Admin1"
+  },
 
+  {"username": "BobHanks",
+  "password": "Bobby"
+}
 ]
