@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useUser } from '../UserContext';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = ({ setAuthenticated }) => {
     const { setUser } = useUser(); // Use the hook to access setUser
@@ -12,7 +13,6 @@ const Login = ({ setAuthenticated }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        // Simulated user authentication logic
         const fakeUser = { username, password }; // Simulated user
 
         if (fakeUser.username && fakeUser.password) {
@@ -29,26 +29,32 @@ const Login = ({ setAuthenticated }) => {
     };
 
     return (
-        <div>
-            <h2>Login</h2>
-            <form onSubmit={handleLogin}>
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Username"
-                    required
-                />
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Password"
-                    required
-                />
-                <button type="submit">Login</button>
+        <div className="container">
+            <h2 className="mt-5">Login</h2>
+            <form onSubmit={handleLogin} className="mt-3">
+                <div className="mb-3">
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Username"
+                        required
+                        className="form-control"
+                    />
+                </div>
+                <div className="mb-3">
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                        required
+                        className="form-control"
+                    />
+                </div>
+                <button type="submit" className="btn btn-primary">Login</button>
+                {message && <p className="mt-3">{message}</p>}
             </form>
-            {message && <p>{message}</p>}
         </div>
     );
 };

@@ -6,7 +6,7 @@ const PricingPlans = () => {
   const navigate = useNavigate();
   return (
     <div className="container my-5">
-      <h2 className="text-center mb-4">Pricing Plans</h2>
+      <h2 className="text-center mb-4 pricing-header">Pricing:</h2>
       <div className="row">
         {/* Monthly Plan */}
         <div className="col-md-4">

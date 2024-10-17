@@ -1,0 +1,112 @@
+/* styles.css */
+body {
+  background-image: url('/public/pink-sky.jpg'); /* Update the path to your image */
+  background-size: cover; /* Cover the entire viewport */
+  background-repeat: no-repeat; /* Prevent repeating */
+  background-position: center; /* Center the image */
+  min-height: 100vh; /* Make sure it covers the full height */
+}
+
+
+.container {
+   background-color: #fffcfdf8;/* Optional: Add a semi-transparent background to containers */
+  border-radius: 45px; /* Optional: Rounded corners */
+  padding: 40px; /* Optional: Add some padding */
+   min-height: calc(10vh - 10px); /* Adjust based on your footer height */
+
+}
+
+/* styles.css or App.css */
+
+
+
+
+.navbar-expand-sm {
+  flex-wrap: nowrap; /* Prevent wrapping */
+  justify-content: flex-start; /* Align items to the left */
+  
+  
+}
+
+.navbar {
+  padding: 10; 
+}
+
+.navbar-nav .nav-link {
+  padding: 0.5rem 0.1rem; /* Minimal padding for links */
+  font-size: 2rem; /* Smaller font size */
+  margin: 0 80px; /* Adjust spacing between links */
+}
+
+.footer {
+  padding: 2; /* Remove padding */
+  font-size: 0.75rem; /* Smaller font size */
+  background-color: #f6f8fa; /* Example background color */
+  color: white; /* Text color */
+}
+
+.active-link {
+  text-decoration: underline; /* Underline for the active link */
+  font-weight: bold; /* Optional: Make it bold */
+  color: rgb(219, 20, 176) !important ; /* Optional: Change color for the active link */
+  font-style: italic;
+}
+
+.card {
+  margin-top: 30px;
+  background-color: rgb(136, 107, 130); /* Card background color */
+  color: white; /* Text color inside cards */
+  border: 6px solid rgb(150, 106, 136);
+}
+
+.card-header {
+  background-color: rgb(170, 0, 140); /* Card header color */
+  color: rgb(245, 16, 16); /* Text color in card header */
+}
+
+.card-footer {
+  background-color: rgb(170, 0, 140); /* Card footer color */
+  color: rgb(121, 42, 42); /* Text color in card footer */
+}
+
+.btn-primary {
+  background-color: rgb(37, 33, 36); /* Primary button color */
+  border-color: rgb(219, 20, 176); /* Border color */
+}
+
+.btn-primary:hover {
+  background-color: rgb(49, 44, 49); /* Button hover color */
+  border-color: rgb(255, 255, 255); /* Border hover color */
+}
+
+.lead{
+  font-size: 1.5rem;
+}
+h2{
+  font-size: 3rem;
+  margin-top:  20px;
+}
+
+.pricing-header {
+  display: inline-block; 
+  padding: 4px; 
+  background-color: rgba(54, 20, 207, 0.603); 
+  color: white; /* Font color */
+  border: 5px solid rgb(112, 110, 112); 
+}
+
+
+.text-primary{
+  color: rgb(219, 20, 176) !important ;
+}
+
+
+
+
+
+
+
+
+
+
+

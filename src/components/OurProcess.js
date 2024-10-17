@@ -13,8 +13,8 @@ const OurProcess = () => {
             <h2>Our Process to Help You</h2>
             <div className="accordion" id="accordionExample">
                 {/* First Question */}
-                <div className="accordion-item">
-                    <h2 className="accordion-header" id="headingOne">
+               <div className="accordion-item">
+                     <h2 className="accordion-header" id="headingOne">
                         <button
                             className="accordion-button"
                             type="button"

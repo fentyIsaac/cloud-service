@@ -1,4 +1,4 @@
-/* App.css */
+
 html, body {
   height: 100%;
   margin: 0;
@@ -27,7 +27,7 @@ html, body {
 
 }
 
-/* App.css */
+
 .navbar .navbar-nav .nav-link {
   font-weight: bold; /* Makes the navbar links bold */
 }

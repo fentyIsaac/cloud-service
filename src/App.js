@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, Navigate, NavLink } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ContactPage from './pages/ContactPage';
 import QandAPage from './pages/QandAPage';
-import UserManagement from './components/UserManagement'; // User Management component
+import UserManagement from './components/UserManagement';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
-import OurProcess from './components/OurProcess'; // Import OurProcess component
-import { UserProvider } from './UserContext'; // Import UserProvider
+import { UserProvider } from './UserContext';
 import './App.css';
+import './styles/styles.css';
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -19,33 +19,63 @@ const App = () => {
     }, []);
 
     return (
-        <UserProvider> {/* Wrap the application with UserProvider */}
+        <UserProvider>
             <Router>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
-                    <div className="container">
-                        <Link className="navbar-brand" to="/">Cloud Service</Link>
-                        <div className="collapse navbar-collapse" id="navbarNav">
+                <nav className="navbar navbar-expand-sm navbar-light bg-light p-0">
+                    <div className="container-fluid">
+                        <Link className="navbar-brand p-1" to="/" style={{ fontSize: '2rem' }}>Cloud Service</Link>
+                        <div className="collapse navbar-collapse justify-content=center" id="navbarNav">
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/">Home</Link>
+                                    <NavLink 
+                                        className={({ isActive }) => `nav-link p-1  ${isActive ? 'active-link' : ''}`} 
+                                        to="/" 
+                                        style={{ fontSize: '2rem', color: 'black' }}>
+                                        Home
+                                    </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/contact">Contact</Link>
+                                    <NavLink 
+                                        className={({ isActive }) => `nav-link  p-1 ${isActive ? 'active-link' : ''}`} 
+                                        to="/contact" 
+                                        style={{ fontSize: '2rem', color: 'black' }}>
+                                        Contact
+                                    </NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/qa">Q&A</Link>
+                                    <NavLink 
+                                        className={({ isActive }) => `nav-link p-1 ${isActive ? 'active-link' : ''}`} 
+                                        to="/qa" 
+                                        style={{ fontSize: '2rem', color: 'black' }}>
+                                        Q&A
+                                    </NavLink>
                                 </li>
                                 {isAuthenticated ? (
                                     <li className="nav-item">
-                                        <Link className="nav-link" to="/usermanagement">User Management</Link>
+                                        <NavLink 
+                                            className={({ isActive }) => `nav-link p-1 ${isActive ? 'active-link' : ''}`} 
+                                            to="/usermanagement" 
+                                            style={{ fontSize: '2rem', color: 'black' }}>
+                                            User Management
+                                        </NavLink>
                                     </li>
                                 ) : (
                                     <>
                                         <li className="nav-item">
-                                            <Link className="nav-link" to="/login">Login</Link>
+                                            <NavLink 
+                                                className={({ isActive }) => `nav-link p-1 ${isActive ? 'active-link' : ''}`} 
+                                                to="/login" 
+                                                style={{ fontSize: '2rem', color: 'black' }}>
+                                                Login
+                                            </NavLink>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link" to="/signup">Sign Up</Link>
+                                            <NavLink 
+                                                className={({ isActive }) => `nav-link p-1 ${isActive ? 'active-link' : ''}`} 
+                                                to="/signup" 
+                                                style={{ fontSize: '2rem', color: 'black' }}>
+                                                Sign Up
+                                            </NavLink>
                                         </li>
                                     </>
                                 )}
@@ -65,8 +95,8 @@ const App = () => {
                     </Routes>
                 </div>
 
-                <footer className="footer text-center mt-auto">
-                    <div className="container">
+                <footer className="footer text-center p-0" style={{ backgroundColor: 'white', color: 'white', fontSize: '1rem' }}>
+                    <div className="container-fluid">
                         <span className="text-muted">© 2024 Cloud Service</span>
                     </div>
                 </footer>
