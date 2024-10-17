@@ -1,13 +1,14 @@
-// backend/server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://levelstotrading.com' // Replace with your actual frontend URL
+}));
 app.use(bodyParser.json());
 
 const dbFilePath = 'users.json';
@@ -49,7 +50,6 @@ app.post('/login', (req, res) => {
         return res.status(401).json({ message: 'Invalid username or password.' });
     }
 
-    // Optionally, you can return user data or a token here
     res.status(200).json({ message: 'Login successful!' });
 });
 
