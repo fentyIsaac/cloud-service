@@ -53,6 +53,7 @@ const PricingPlans = () => {
                 <li>Custom Solutions and Integrations</li>
                 <li>Priority Support</li>
               </ul>
+              {/* Here we can see JSX code is in full effect. With the JavaScript onClick Event={} */}
               <a href="#" className="btn btn-primary" onClick={()=> navigate('/contact')}>Contact Us</a>
             </div>
           </div>

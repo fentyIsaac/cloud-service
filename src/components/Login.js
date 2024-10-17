@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
+
+
+
 const Login = ({ setAuthenticated }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -33,6 +36,8 @@ const Login = ({ setAuthenticated }) => {
 
     return (
         <div>
+
+            {/*  Example 2: JSX code. HTML and JS working together  */}
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
                 <input
